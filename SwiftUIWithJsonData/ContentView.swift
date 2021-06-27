@@ -7,10 +7,29 @@
 //
 
 import SwiftUI
+import Combine
+
 
 struct ContentView: View {
+    
+    @ObservedObject private var postListViewModel = PostListViewModel()
+    
     var body: some View {
-        Text("Hello, World!")
+        NavigationView{
+            List(self.postListViewModel.post, id: \.id) { post in
+                Image("apple").resizable().frame(width: 72.0, height: 72.0)
+                VStack(alignment: .center){
+                    Text(post.title)
+                        .font(.title)
+                        .multilineTextAlignment(.leading)
+                    Text(post.description)
+                        .font(.subheadline)
+                        .fontWeight(.semibold)
+                        .foregroundColor(Color.gray)
+                        .multilineTextAlignment(.leading)
+                }
+            }.navigationBarTitle(Text("Categories"))
+        }
     }
 }
 
